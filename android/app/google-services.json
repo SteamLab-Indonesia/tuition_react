@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "769268300509",
+    "firebase_url": "https://steamlab-a8ccf.firebaseio.com",
+    "project_id": "steamlab-a8ccf",
+    "storage_bucket": "steamlab-a8ccf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769268300509:android:cf0f129d620aed41",
+        "android_client_info": {
+          "package_name": "com.steamlab.course"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769268300509-hv8ah1gssdqt8t6p1kfodphtt3c07ctc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTVs5XQPiA-is0FARVYXujQWDCj3KTETc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
