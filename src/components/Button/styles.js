@@ -6,8 +6,8 @@ export default EStyleSheet.create({
         paddingVertical: '10rem',
         paddingHorizontal: '15rem',
         borderWidth: 1,
-        backgroundColor: '$primaryBlue',
-        borderColor: '$primaryBlue'
+        backgroundColor: '#045757',
+        borderColor: '#045757'
    },
    buttonText: {
        color: '$white',

@@ -37,7 +37,7 @@ export default EStyleSheet.create({
     notifCategory: {
         fontSize: '16rem',
         fontWeight: 'bold',
-        color: '$primaryBlue'
+        color: '#045757'
     },
     iconNotif: {
         marginRight: '5rem'

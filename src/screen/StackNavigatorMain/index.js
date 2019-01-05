@@ -7,6 +7,10 @@ import ForgotPasswordScreen from '../ForgotPassword';
 import NavigationService from '../NavigationService';
 import { HeaderBackButton } from 'react-navigation';
 import StudentAttendance from '../StudentAttendance';
+import TeacherAttendance from '../TeacherAttendance';
+import TeacherList from '../TeacherList';
+import StudentList from '../StudentList';
+import ParentView from '../ParentView';
 
 class StackFile extends Component{
     render(){
@@ -56,9 +60,37 @@ const Stack = StackNavigator({
             header: null
         }
         
+    },
+    TeacherAttendance: {
+        screen: TeacherAttendance,
+        navigationOptions: {
+            header: null
+        }
+        
+    },
+    TeacherList: {
+        screen: TeacherList,
+        navigationOptions: {
+            header: null
+        }
+        
+    },
+    StudentList: {
+        screen: StudentList,
+        navigationOptions: {
+            header: null
+        }
+        
+    },
+    ParentView: {
+        screen: ParentView,
+        navigationOptions: {
+            header: null
+        }
+        
     }
 },{
-    initialRouteName: 'StudentAttendance'
+    initialRouteName: 'ParentView'
 })
 
 export default StackFile;

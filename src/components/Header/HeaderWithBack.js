@@ -11,7 +11,7 @@ export default class HeaderWithBack extends React.Component {
                 <View style={styles.headerContainer}>
                     <TouchableOpacity style={styles.left}>
                         <View>
-                            <Icon name='md-arrow-round-back' type='ionicon' color='white' />
+                            <Icon name='md-arrow-round-back' type='ionicon' color='black' />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.right}>

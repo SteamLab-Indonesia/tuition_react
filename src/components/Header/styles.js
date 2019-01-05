@@ -6,8 +6,9 @@ const screenHeight = Dimensions.get('screen').height
 
 export default EStyleSheet.create({
     header: {
-        backgroundColor: '$primaryBlue',
-        height: screenHeight * 0.07
+        backgroundColor: '#a6d2ff',
+        height: screenHeight * 0.07,
+        borderBottomWidth: 1
     },
     headerContainer: {
         flex: 1,
@@ -28,10 +29,10 @@ export default EStyleSheet.create({
     },
     headerText: {
         fontSize: '18rem',
-        color: '$white'
-    },
+        color: 'red'
+    }, 
     text:{
-        color: '$white',
+        color: 'black',
         fontWeight: 'bold'
     },
     lf: {

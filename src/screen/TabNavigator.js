@@ -15,7 +15,7 @@ const TabNavigator = createBottomTabNavigator({
             fontWeight: 'bold',
             marginBottom: 12
         },
-        activeTintColor: '#0a4096'
+        activeTintColor: '#045757'
     }
 });
 

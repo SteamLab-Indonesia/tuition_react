@@ -10,7 +10,7 @@ export default class ListItem extends React.Component {
             <TouchableOpacity>
                 <View style={styles.notifItem}>
                     <View style={styles.iconNotif}>
-                        <Icon name='bell' type='entypo' color='#0a4096' size={32}/>
+                        <Icon name='bell' type='entypo' color='#045757' size={32}/>
                     </View>
                     <View>
                         <Text style={styles.notifCategory}>{this.props.category}</Text>

@@ -8,10 +8,10 @@ export default EStyleSheet.create({
     },
     bordered: {
         borderWidth: 0.5,
-        borderColor: '#0a4096'
+        borderColor: '#045757'
     },
     header: {
-        backgroundColor: '#0a4096',
+        backgroundColor: '#045757',
     },
     headerText: {
         color: 'white',
