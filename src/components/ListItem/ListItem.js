@@ -10,6 +10,8 @@ export default class ListItem extends React.Component {
         let below;
         if (this.props.grade){
             below = <Text>Grade: {this.props.grade}</Text>
+        } else if (this.props.class){
+            below = <Text>{this.props.class} Class</Text>
         } else {
             below = <Text>{this.props.class} ({this.props.session} sessions)</Text>
         }

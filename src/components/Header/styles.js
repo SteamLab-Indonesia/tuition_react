@@ -29,7 +29,8 @@ export default EStyleSheet.create({
     },
     headerText: {
         fontSize: '18rem',
-        color: 'red'
+        color: 'red',
+        fontWeight: 'bold'
     }, 
     text:{
         color: 'black',

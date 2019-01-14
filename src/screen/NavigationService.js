@@ -1,6 +1,6 @@
 // NavigationService.js
 
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, DrawerActions } from 'react-navigation';
 
 let _navigator;
 let _drawer;
@@ -32,11 +32,18 @@ function navigateDrawer(routeName, params) {
     })
   );
 }
+
+function toggleDrawer(){
+  _drawer.dispatch(
+    DrawerActions.toggleDrawer()
+  )
+}
 // add other navigation functions that you need and export them
 
 export default {
   navigate,
   navigateDrawer,
   setTopLevelNavigator,
-  setTopLevelDrawer
+  setTopLevelDrawer,
+  toggleDrawer
 };
