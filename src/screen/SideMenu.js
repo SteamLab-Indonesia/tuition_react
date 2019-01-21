@@ -19,6 +19,21 @@ class SideMenu extends Component {
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Dashboard')}>
                     Dashboard
               </Text>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Student Attendance')}>
+                    Student Attendance
+              </Text>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Teacher Attendance')}>
+                    Teacher Attendance
+              </Text>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Student List')}>
+                    Student List
+              </Text>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Teacher List')}>
+                    Teacher List
+              </Text>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Parent View')}>
+                    Parent View
+              </Text>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Course List')}>
                     Course List
               </Text>
