@@ -8,7 +8,7 @@ export default EStyleSheet.create({
     header: {
         backgroundColor: '#a6d2ff',
         height: screenHeight * 0.07,
-        borderBottomWidth: 1
+        borderBottomWidth: 0
     },
     headerContainer: {
         flex: 1,

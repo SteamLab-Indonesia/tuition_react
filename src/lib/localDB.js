@@ -55,7 +55,7 @@ Realm.open({schema: [EntitySchema, AppsHistorySchema], schemaVersion: 2})
         {
             if (_apps && _apps.latest_entity && _apps.latest_entity != '')
             {
-                let result = entities.filtered('email = "' + _apps.latest_entity + '"');
+                let result = entities.filtered('username = "' + _apps.latest_entity + '"');
                 if (result && result.length > 0)
                     _entity = result[0];
             }
@@ -64,8 +64,6 @@ Realm.open({schema: [EntitySchema, AppsHistorySchema], schemaVersion: 2})
             {
                 _entity = entities[0];
             }
-            console.log(_entity);
-            console.log('entityId: ' + _entity.entity_id);
         }
     })
     .catch(error => {
@@ -96,37 +94,37 @@ export function getDeviceToken() {
 
 // Save account details after login
 export function saveAccount(data, pwd) {
-    if (data)
+    if (data && (data.email || data.username))
     {
+        let username = (data.username ? data.username : data.email);
+        console.log('save user: ' + username);
+        data.email = data.email.toLowerCase();
+        username = username.toLowerCase();
         _realm.write(() => {
             _entity = _realm.create('Entity', {
-                authentication_string: data.authentication_string_lower,
+                username: username,
+                email: data.email,
                 password: pwd,
                 name: data.name,
-                entity_id: data._id,
-                authorization_level: data.authorization_level,
+                auth_level: data.authorization_level,
                 logout: false
             }, true);
 
             _apps = _realm.create('AppsHistory', {
                 id: 1,
-                latest_entity: _entity.entity_id
+                latest_entity: _entity.username
             }, true);
 
-            console.log(_entity);
-            console.log(_apps);
         });        
 
     }
-    _isIntercom = false;
 }
 
-export function saveAuthName(authentication_string, name) {
+export function saveAuthName(username, name) {
 
     _realm.write(() => {
         _entity = _realm.create('Entity', {
-            entity_id: _entity.entity_id,
-            authentication_string: authentication_string,
+            username: username,
             name: name
         }, true);                
     });        
@@ -136,13 +134,16 @@ export function savePushToken(token, id) {
     console.log('save push token:' + id);
     if (id) {
         console.log('save token [' + token + " ; " + id)
-        // _realm.write(() => {
-        //     _entity = _realm.create('Entity', {
-        //         entity_id: _entity.entity_id,
-        //         push_token: token,
-        //         push_id: id
-        //     }, true);                
-        // });        
+        if (_entity)
+        {
+            _realm.write(() => {
+                _entity = _realm.create('Entity', {
+                    username: _entity.username,
+                    push_token: token,
+                    push_id: id
+                }, true);                
+            });
+        }    
         _deviceToken = token;
         _deviceUser = id;
     }
@@ -168,7 +169,7 @@ export function logoutSession() {
     {
         _realm.write(() => {
             _entity = _realm.create('Entity', {
-                entity_id: _entity.entity_id,
+                username: _entity.username,
                 logout: true
             }, true);                
         });     

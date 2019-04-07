@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StatusBar, ScrollView, BackHandler, Alert } from 'react-native';
 import { Spinner, H1, H3, Button, Input } from 'native-base';
 import { styles } from './style';
-import { login } from '../../action';
-// import { connect } from 'react-redux';
+import { login } from '../../lib/User';
 import { saveAccount, getEntity, getDeviceId, getDeviceType, getDeviceToken } from '../../lib/localDB';
-import firebase from 'react-native-firebase';
 
 export default class Login extends Component{
 
@@ -15,7 +13,7 @@ export default class Login extends Component{
         loading: false            
     }
 
-    updateState(entity) {
+    updateState = (entity) => {
         if (entity)
         {
             this.setState({
@@ -24,52 +22,26 @@ export default class Login extends Component{
             })    
         }
     }
-
     componentWillMount(){
         //StatusBar.setHidden(false);
     }
     
-    async componentDidMount(){
+    componentDidMount = () => {
         BackHandler.addEventListener('hardwareBackPress',this.exitApp.bind(this));
-        firebase.auth().onAuthStateChanged((user) => {
-            this.setState({
-                user,
-            });
-            if (user)
-            {
-                if (user)
-                {
-                    firebase.firestore().collection('users').where("username", "==", user.email)
-                    .get()
-                    .then(function(querySnapshot) {
-                        console.log('query result:');
-                        querySnapshot.forEach(function(doc) {
-                            // binded to the UI
-                            console.log(doc.data());
-                        });
-                    });                                                        
-                }
-
-                this.props.navigation.navigate('Drawer');
-            }
-            else
-            {
-                const entity = getEntity();
-                if (entity)
-                {
-                    this.updateState(entity);
-                }
-            }
-        });
-
+        let loginUser = getEntity();
+        if (loginUser && !loginUser.logout)
+        {
+            this.updateState(loginUser);
+            this.doLogin(loginUser.username, loginUser.password);
+        }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount = () => {
         //this.props.onDestryApp();
         BackHandler.removeEventListener('hardwareBackPress',this.exitApp.bind(this));
     }
 
-    exitApp(){
+    exitApp = () => {
 
             Alert.alert(
                 'Quit',
@@ -83,96 +55,31 @@ export default class Login extends Component{
             return true;
     }
 
-    async doLogin(username, password) {
+    doLogin = (username, password) => {
         if(username && password)
         {
             this.setState({loading: true});
-            const { username, password } = this.state;
-            firebase.auth().signInAndRetrieveDataWithEmailAndPassword(username, password)
-            .then((user) => {
-
+            login(username, password, ((err, user) => {
                 this.setState({loading: false});
-                console.log('after login:');
-                console.log(user);
-
-                // If you need to do anything with the user, do it here
-                // The user will be logged in automatically by the 
-                // `onAuthStateChanged` listener we set up in App.js earlier
-            })
-            .catch((error) => {
-                this.setState({loading: false});
-                const { code, message } = error;
-
-                console.log('login error:');
-                console.log(code);
-                console.log(message);
-                // For details of error codes, see the docs
-                // The message contains the default Firebase string
-                // representation of the error
-            });
-
-
-            
-            // if (!response)
-            // {
-            //     Alert.alert(
-            //         'Error',
-            //         'Unknown Error, Please Contact Administrator',
-            //         [
-            //             {text: 'OK', onPress: ()=> null}
-            //         ],
-            //         {cancelable: false}
-            //     )
-            // }
-            // else if (response.Error)
-            // {
-            //     if (response.ErrorDesc)
-            //     {
-            //         Alert.alert(
-            //             'Login',
-            //             response.ErrorDesc,
-            //             [
-            //                 {text: 'OK', onPress: ()=> null}
-            //             ],
-            //             {cancelable: false}
-            //         )                          
-            //     }
-            //     else
-            //     {
-            //         Alert.alert(
-            //             'Login',
-            //             'Please Contact Administrator',
-            //             [
-            //                 {text: 'OK', onPress: ()=> null}
-            //             ],
-            //             {cancelable: false}
-            //         )
-            //     }
-            // }                
-            // else if (response.Data)
-            // {
-            //     saveAccount(response.Data, entity_password);               
-            //     this.props.navigation.navigate('Drawer');
-            // }
-            // else
-            // {
-            //     Alert.alert(
-            //         'Error',
-            //         'Please check your internet connection and try again',
-            //         [
-            //             {text: 'OK', onPress: ()=> null}
-            //         ],
-            //         {cancelable: false}
-            //     )                
-            // }
+                if (err)
+                {
+                    alert(err.message);
+                }
+                else
+                {
+                    saveAccount(user, password);
+                    this.props.navigation.navigate('drawerStack');
+                }
+            }));
         }
     }
-    async onButtonPress() {
+    
+    onButtonPress = () => {
         if (this.state.username && this.state.password)
-            await this.doLogin(this.state.username, this.state.password);
+            this.doLogin(this.state.username, this.state.password);
     }    
 
-    renderButton() {
+    renderButton = () => {
         if (this.state.loading) {
             return <Spinner color="red" size="small" />;
         }
